@@ -1,16 +1,27 @@
 export default async function handler(request, response) {
+  // Only allow POST requests
   if (request.method !== 'POST') {
-    return response.status(405).json({ error: 'Method not allowed' });
+    return response.status(405).json({
+      error: 'Method not allowed'
+    });
   }
 
   try {
+    // -----------------------------------------
+    // 1. Read request data
+    // -----------------------------------------
     const { message, locale = 'ar' } = request.body || {};
     const userMessage = String(message || '').trim();
 
     if (!userMessage) {
-      return response.status(400).json({ error: 'Message is required.' });
+      return response.status(400).json({
+        error: 'Message is required.'
+      });
     }
 
+    // -----------------------------------------
+    // 2. Wariqa system prompt
+    // -----------------------------------------
     const systemPrompt = `أنت "مساعد وَرِيقة"، المساعد الرسمي لموقع وتطبيق "وَرِيقة — قصاصات وكلمات".
 
 هويتك:
@@ -31,17 +42,21 @@ export default async function handler(request, response) {
 
 قواعد اللغة:
 - إذا تحدث المستخدم بالعربية، أجب بالعربية.
-- إذا تحدث بالفارسية، أجب بالفارسية.
-- إذا تحدث بالإنجليزية، أجب بالإنجليزية.
+- إذا تحدث المستخدم بالفارسية، أجب بالفارسية.
+- إذا تحدث المستخدم بالإنجليزية، أجب بالإنجليزية.
 - إذا كانت اللغة غير واضحة، استخدم العربية.
 
 قواعد الدقة:
 لا تخترع أبدًا معلومات غير موجودة في بيانات وَرِيقة الرسمية.
-إذا لم تكن المعلومة معلنة، قل: "لم يتم الإعلان عن هذه التفاصيل رسميًا بعد."
-إذا كانت ميزة ضمن الخطة المستقبلية وليست متاحة بعد، وضّح أنها: "ميزة مخطط لها / قادمة لاحقًا."
+إذا لم تكن المعلومة معلنة، قل:
+"لم يتم الإعلان عن هذه التفاصيل رسميًا بعد."
+
+إذا كانت ميزة ضمن الخطة المستقبلية وليست متاحة بعد، وضّح أنها:
+"ميزة مخطط لها / قادمة لاحقًا."
 
 نطاق المساعدة:
-إذا سأل المستخدم سؤالًا خارج نطاق تطبيق وَرِيقة أو الـScrapbooking أو حفظ الذكريات، لا تجب عن السؤال نفسه. وجه الحوار بلطف إلى وَرِيقة.
+إذا سأل المستخدم سؤالًا خارج نطاق تطبيق وَرِيقة أو الـScrapbooking أو حفظ الذكريات، لا تجب عن السؤال نفسه.
+وجه الحوار بلطف إلى وَرِيقة.
 
 أسلوب الرد:
 - ودود.
@@ -51,48 +66,143 @@ export default async function handler(request, response) {
 - لا تدّعي أن ميزة جاهزة وهي لا تزال قيد التطوير.
 - استخدم الرموز التعبيرية باعتدال.
 
-عند السؤال "ما هي وَرِيقة؟" اشرح أنها تطبيق Scrapbook رقمي عربي بالدرجة الأولى يسمح للمستخدم بصناعة ذكريات وتصاميم جميلة باستخدام النصوص والصور والقوالب والقصاصات والعناصر الورقية.
+عند السؤال "ما هي وَرِيقة؟":
+اشرح أنها تطبيق Scrapbook رقمي عربي بالدرجة الأولى يسمح للمستخدم بصناعة ذكريات وتصاميم جميلة باستخدام النصوص والصور والقوالب والقصاصات والعناصر الورقية.
 
-عند السؤال عن موعد الإطلاق: إذا لم يوجد تاريخ محدد، قل: "وَرِيقة ما زالت قيد التطوير، وسيتم الإعلان عن موعد الإطلاق عندما يتم تحديده رسميًا."`;
+عند السؤال عن موعد الإطلاق:
+إذا لم يوجد تاريخ محدد، قل:
+"وَرِيقة ما زالت قيد التطوير، وسيتم الإعلان عن موعد الإطلاق عندما يتم تحديده رسميًا."`;
 
-    const languageInstruction = locale === 'en'
-      ? 'Reply only in English.'
-      : locale === 'fa'
-        ? 'فقط به زبان فارسی پاسخ بده.'
-        : 'أجب باللغة العربية فقط.';
-
-    const apiKey = process.env.GEMINI_API_KEY;
-    if (!apiKey) {
-      const fallback = locale === 'en'
-        ? 'I can help with Wariqa, memories, scrapbook ideas, and creative prompts. The exact launch details have not been officially announced yet.'
+    // -----------------------------------------
+    // 3. Language instruction
+    // -----------------------------------------
+    const languageInstruction =
+      locale === 'en'
+        ? 'Reply only in English.'
         : locale === 'fa'
-          ? 'من می‌توانم در مورد ورقه، خاطرات و ایده‌های اسکریپ‌بوک به شما کمک کنم. جزئیات دقیق عرضه هنوز به‌صورت رسمی اعلام نشده است.'
-          : 'أستطيع مساعدتك في وَرِيقة وأفكار الـScrapbook والذكريات. لم يتم الإعلان عن تفاصيل الإطلاق رسميًا بعد.';
-      return response.status(200).json({ reply: fallback });
+          ? 'فقط به زبان فارسی پاسخ بده.'
+          : 'أجب باللغة العربية فقط.';
+
+    // -----------------------------------------
+    // 4. Read Gemini API key
+    // -----------------------------------------
+    const apiKey = process.env.GEMINI_API_KEY;
+
+    if (!apiKey) {
+      console.error('GEMINI_API_KEY is missing from server environment.');
+
+      return response.status(500).json({
+        error: 'AI is not configured on the server.'
+      });
     }
 
-    const geminiResponse = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        contents: [{ role: 'user', parts: [{ text: userMessage }] }],
-        systemInstruction: {
-          parts: [{ text: `${systemPrompt}\n\n${languageInstruction}` }]
-        }
-      })
+    // -----------------------------------------
+    // 5. Gemini model
+    // -----------------------------------------
+    // You can override this later with a Vercel
+    // environment variable named GEMINI_MODEL.
+    const model = process.env.GEMINI_MODEL || 'gemini-3.8-flash';
+
+    // -----------------------------------------
+    // 6. Send request to Gemini
+    // -----------------------------------------
+    const geminiResponse = await fetch(
+      `https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(model)}:generateContent`,
+      {
+        method: 'POST',
+
+        headers: {
+          'Content-Type': 'application/json',
+          'x-goog-api-key': apiKey
+        },
+
+        body: JSON.stringify({
+          systemInstruction: {
+            parts: [
+              {
+                text: `${systemPrompt}\n\n${languageInstruction}`
+              }
+            ]
+          },
+
+          contents: [
+            {
+              parts: [
+                {
+                  text: userMessage
+                }
+              ]
+            }
+          ]
+        })
+      }
+    );
+
+    // -----------------------------------------
+    // 7. Read Gemini response
+    // -----------------------------------------
+    const rawResponse = await geminiResponse.text();
+
+    let data = null;
+
+    try {
+      data = JSON.parse(rawResponse);
+    } catch {
+      data = null;
+    }
+
+    // -----------------------------------------
+    // 8. Handle Gemini API errors
+    // -----------------------------------------
+    if (!geminiResponse.ok) {
+      console.error(
+        'Gemini API error:',
+        geminiResponse.status,
+        rawResponse
+      );
+
+      return response.status(502).json({
+        error: 'Gemini API request failed.'
+      });
+    }
+
+    // -----------------------------------------
+    // 9. Extract AI response
+    // -----------------------------------------
+    const reply = data?.candidates?.[0]?.content?.parts
+      ?.map((part) => part?.text || '')
+      .join('')
+      .trim();
+
+    // -----------------------------------------
+    // 10. Handle empty Gemini response
+    // -----------------------------------------
+    if (!reply) {
+      console.error(
+        'Gemini returned an empty response:',
+        rawResponse
+      );
+
+      return response.status(502).json({
+        error: 'Gemini returned an empty response.'
+      });
+    }
+
+    // -----------------------------------------
+    // 11. Return successful response
+    // -----------------------------------------
+    return response.status(200).json({
+      reply
     });
 
-    if (!geminiResponse.ok) {
-      throw new Error('Gemini request failed');
-    }
-
-    const json = await geminiResponse.json();
-    const reply = json?.candidates?.[0]?.content?.parts?.[0]?.text || 'لم يتم الإعلان عن هذه التفاصيل رسميًا بعد.';
-
-    return response.status(200).json({ reply });
   } catch (error) {
-    return response.status(200).json({
-      reply: 'أنا هنا لمساعدتك في كل ما يتعلق بتطبيق «وَرِيقة» وصناعة الذكريات الجميلة 📜✨ هل تحب أن أعرّفك على مميزات وَرِيقة أو أعطيك فكرة لتصميم ذكرى؟'
+    // -----------------------------------------
+    // 12. Unexpected server error
+    // -----------------------------------------
+    console.error('Chat API error:', error);
+
+    return response.status(500).json({
+      error: 'Internal server error.'
     });
   }
 }
