@@ -89,7 +89,9 @@ export default async function handler(request, response) {
     const apiKey = process.env.GEMINI_API_KEY;
 
     if (!apiKey) {
-      console.error('GEMINI_API_KEY is missing from server environment.');
+      console.error(
+        'GEMINI_API_KEY is missing from server environment.'
+      );
 
       return response.status(500).json({
         error: 'AI is not configured on the server.'
@@ -99,9 +101,9 @@ export default async function handler(request, response) {
     // -----------------------------------------
     // 5. Gemini model
     // -----------------------------------------
-    // You can override this later with a Vercel
-    // environment variable named GEMINI_MODEL.
-    const model = process.env.GEMINI_MODEL || 'gemini-3.8-flash';
+    // Use the current Gemini model directly.
+    // Do not use GEMINI_MODEL from Vercel environment.
+    const model = 'gemini-3.8-flash';
 
     // -----------------------------------------
     // 6. Send request to Gemini
@@ -162,7 +164,9 @@ export default async function handler(request, response) {
       );
 
       return response.status(502).json({
-        error: 'Gemini API request failed.'
+        error: 'Gemini API request failed.',
+        geminiStatus: geminiResponse.status,
+        details: rawResponse.slice(0, 1000)
       });
     }
 
@@ -184,7 +188,8 @@ export default async function handler(request, response) {
       );
 
       return response.status(502).json({
-        error: 'Gemini returned an empty response.'
+        error: 'Gemini returned an empty response.',
+        details: rawResponse.slice(0, 1000)
       });
     }
 
