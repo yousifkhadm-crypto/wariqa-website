@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="وَرِيقة logo">
+  <defs>
+    <linearGradient id="bg" x1="0%" x2="100%" y1="0%" y2="100%">
+      <stop offset="0%" stop-color="#D7B68A"/>
+      <stop offset="100%" stop-color="#B57B52"/>
+    </linearGradient>
+    <linearGradient id="paper" x1="0%" x2="100%" y1="0%" y2="100%">
+      <stop offset="0%" stop-color="#F5EAD0"/>
+      <stop offset="100%" stop-color="#D9B98E"/>
+    </linearGradient>
+    <filter id="shadow" x="-15%" y="-15%" width="130%" height="130%">
+      <feDropShadow dx="0" dy="18" stdDeviation="14" flood-color="#33271F" flood-opacity="0.28"/>
+    </filter>
+  </defs>
+
+  <rect width="512" height="512" rx="118" fill="#0F0F0F"/>
+  <g filter="url(#shadow)">
+    <rect x="52" y="52" width="408" height="408" rx="96" fill="url(#bg)"/>
+
+    <g transform="translate(82 86)">
+      <path d="M82 264C80 120 134 64 260 64c65 0 96 33 104 67-32 0-64-2-96 12-29 12-51 31-65 60 32-20 70-25 133-18 25 3 47 9 66 17C382 242 330 318 252 334c-62 14-122-8-170-70Z" fill="url(#paper)" opacity="0.88"/>
+      <path d="M142 268c58-32 94-47 143-54 26-4 53-4 88 3-40 14-72 31-106 58-53 41-84 96-100 153-24-47-20-118-25-160Z" fill="#A86A4E" opacity="0.12"/>
+      <path d="M216 128c64 34 88 68 100 103 10 27 12 57 2 85-36-5-67-17-86-35-46-45-47-116-16-153Z" fill="#C38D61" opacity="0.12"/>
+
+      <g stroke="#5E2E1D" stroke-width="12" fill="none" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M135 240c58-66 118-98 157-101 15-1 27 2 38 8" opacity="0.9"/>
+        <path d="M171 243c50-25 88-36 142-39 26-2 47 0 64 5" opacity="0.8"/>
+        <path d="M213 226c7-40 26-72 58-96"/>
+        <path d="M247 169c49 20 81 60 97 116 8 27 13 51 12 74"/>
+        <path d="M278 190c18 15 31 32 41 53 16 36 12 73-11 111"/>
+      </g>
+
+      <g fill="#5E2E1D" opacity="0.9">
+        <path d="M315 94l16 30 30 16-30 16-16 30-16-30-30-16 30-16 16-30Z"/>
+        <path d="M96 147l11 18 18 11-18 11-11 18-10-18-18-11 18-11 10-18Z"/>
+        <path d="M160 72l8 15 15 8-15 8-8 15-8-15-15-8 15-8 8-15Z"/>
+      </g>
+    </g>
+  </g>
+</svg>

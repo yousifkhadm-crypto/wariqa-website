@@ -1,0 +1,16 @@
+{
+  "name": "وَرِيقة — قصاصات وكلمات",
+  "short_name": "وَرِيقة",
+  "description": "تطبيق عربي أولاً لإنشاء ذكريات ورقية رقمية ومذكرات شخصية.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#FDFBF7",
+  "theme_color": "#FDFBF7",
+  "icons": [
+    {
+      "src": "assets/logo.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

@@ -7,16 +7,28 @@ dotenv.config();
 const app = express();
 const port = process.env.PORT || 3000;
 
-app.use(express.json({ limit: '1mb' }));
-app.use(express.static(path.join(__dirname)));
+const publicDir = path.join(__dirname, 'public');
 
+// -----------------------------------------
+// Middleware
+// -----------------------------------------
+app.use(express.json({ limit: '1mb' }));
+
+// Serve all static website files from /public
+app.use(express.static(publicDir));
+
+// -----------------------------------------
+// AI Chat API
+// -----------------------------------------
 app.post('/api/chat', async (req, res) => {
   try {
     const { message, locale = 'ar' } = req.body || {};
     const userMessage = String(message || '').trim();
 
     if (!userMessage) {
-      return res.status(400).json({ error: 'Message is required.' });
+      return res.status(400).json({
+        error: 'Message is required.'
+      });
     }
 
     const systemPrompt = `أنت "مساعد وَرِيقة"، المساعد الرسمي لموقع وتطبيق "وَرِيقة — قصاصات وكلمات".
@@ -45,11 +57,15 @@ app.post('/api/chat', async (req, res) => {
 
 قواعد الدقة:
 لا تخترع أبدًا معلومات غير موجودة في بيانات وَرِيقة الرسمية.
-إذا لم تكن المعلومة معلنة، قل: "لم يتم الإعلان عن هذه التفاصيل رسميًا بعد."
-إذا كانت ميزة ضمن الخطة المستقبلية وليست متاحة بعد، وضّح أنها: "ميزة مخطط لها / قادمة لاحقًا."
+إذا لم تكن المعلومة معلنة، قل:
+"لم يتم الإعلان عن هذه التفاصيل رسميًا بعد."
+
+إذا كانت ميزة ضمن الخطة المستقبلية وليست متاحة بعد، وضّح أنها:
+"ميزة مخطط لها / قادمة لاحقًا."
 
 نطاق المساعدة:
-إذا سأل المستخدم سؤالًا خارج نطاق تطبيق وَرِيقة أو الـScrapbooking أو حفظ الذكريات، لا تجب عن السؤال نفسه. وجه الحوار بلطف إلى وَرِيقة.
+إذا سأل المستخدم سؤالًا خارج نطاق تطبيق وَرِيقة أو الـScrapbooking أو حفظ الذكريات، لا تجب عن السؤال نفسه.
+وجه الحوار بلطف إلى وَرِيقة.
 
 أسلوب الرد:
 - ودود.
@@ -59,65 +75,138 @@ app.post('/api/chat', async (req, res) => {
 - لا تدّعي أن ميزة جاهزة وهي لا تزال قيد التطوير.
 - استخدم الرموز التعبيرية باعتدال.
 
-عند السؤال "ما هي وَرِيقة؟" اشرح أنها تطبيق Scrapbook رقمي عربي بالدرجة الأولى يسمح للمستخدم بصناعة ذكريات وتصاميم جميلة باستخدام النصوص والصور والقوالب والقصاصات والعناصر الورقية.
+عند السؤال "ما هي وَرِيقة؟":
+اشرح أنها تطبيق Scrapbook رقمي عربي بالدرجة الأولى يسمح للمستخدم بصناعة ذكريات وتصاميم جميلة باستخدام النصوص والصور والقوالب والقصاصات والعناصر الورقية.
 
-عند السؤال عن موعد الإطلاق: إذا لم يوجد تاريخ محدد، قل: "وَرِيقة ما زالت قيد التطوير، وسيتم الإعلان عن موعد الإطلاق عندما يتم تحديده رسميًا."`;
+عند السؤال عن موعد الإطلاق:
+إذا لم يوجد تاريخ محدد، قل:
+"وَرِيقة ما زالت قيد التطوير، وسيتم الإعلان عن موعد الإطلاق عندما يتم تحديده رسميًا."`;
 
-    const languageInstruction = locale === 'en'
-      ? 'Reply only in English.'
-      : locale === 'fa'
-        ? 'فقط به زبان فارسی پاسخ بده.'
-        : 'أجب باللغة العربية فقط.';
+    const languageInstruction =
+      locale === 'en'
+        ? 'Reply only in English.'
+        : locale === 'fa'
+          ? 'فقط به زبان فارسی پاسخ بده.'
+          : 'أجب باللغة العربية فقط.';
 
     const apiKey = process.env.GEMINI_API_KEY;
+
     if (!apiKey) {
-      return res.status(200).json({
-        reply: locale === 'en'
-          ? 'I can help with Wariqa, memory ideas, scrapbook prompts, and creative inspiration. Launch details were not announced yet.'
-          : locale === 'fa'
-            ? 'من می‌توانم در مورد ورقه، ایده‌های خاطره‌نگاری و اسکریپ‌بوک به شما کمک کنم. جزئیات عرضه هنوز رسمی اعلام نشده است.'
-            : 'أستطيع مساعدتك في وَرِيقة وأفكار الـScrapbook والذكريات. لم يتم الإعلان عن تفاصيل الإطلاق رسميًا بعد.'
+      console.error('GEMINI_API_KEY is missing.');
+
+      return res.status(500).json({
+        error: 'AI is not configured on the server.'
       });
     }
 
-    const model = 'gemini-3.6-flash';
-    const geminiResponse = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        contents: [{ role: 'user', parts: [{ text: userMessage }] }],
-        systemInstruction: {
-          parts: [{ text: `${systemPrompt}\n\n${languageInstruction}` }]
-        }
-      })
-    });
+    const model = process.env.GEMINI_MODEL || 'gemini-3.6-flash';
+
+    const geminiResponse = await fetch(
+      `https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(model)}:generateContent`,
+      {
+        method: 'POST',
+
+        headers: {
+          'Content-Type': 'application/json',
+          'x-goog-api-key': apiKey
+        },
+
+        body: JSON.stringify({
+          systemInstruction: {
+            parts: [
+              {
+                text: `${systemPrompt}\n\n${languageInstruction}`
+              }
+            ]
+          },
+
+          contents: [
+            {
+              parts: [
+                {
+                  text: userMessage
+                }
+              ]
+            }
+          ]
+        })
+      }
+    );
+
+    const rawResponse = await geminiResponse.text();
+
+    let data = null;
+
+    try {
+      data = JSON.parse(rawResponse);
+    } catch {
+      data = null;
+    }
 
     if (!geminiResponse.ok) {
-      const errorText = await geminiResponse.text();
-      return res.status(200).json({
-        reply: `حدث خطأ في الاتصال بـ Gemini. التفاصيل الفنية: ${errorText.slice(0, 200)}`
+      console.error(
+        'Gemini API error:',
+        geminiResponse.status,
+        rawResponse
+      );
+
+      return res.status(502).json({
+        error: 'Gemini API request failed.'
       });
     }
 
-    const json = await geminiResponse.json();
-    const reply = json?.candidates?.[0]?.content?.parts?.[0]?.text || 'لم يتم الإعلان عن هذه التفاصيل رسميًا بعد.';
+    const reply = data?.candidates?.[0]?.content?.parts
+      ?.map((part) => part?.text || '')
+      .join('')
+      .trim();
 
-    return res.status(200).json({ reply });
-  } catch (error) {
+    if (!reply) {
+      console.error(
+        'Gemini returned an empty response:',
+        rawResponse
+      );
+
+      return res.status(502).json({
+        error: 'Gemini returned an empty response.'
+      });
+    }
+
     return res.status(200).json({
-      reply: 'حدث خطأ أثناء معالجة السؤال. الرجاء المحاولة مرة أخرى أو طرح سؤال مختلف.'
+      reply
+    });
+
+  } catch (error) {
+    console.error('Chat API error:', error);
+
+    return res.status(500).json({
+      error: 'Internal server error.'
     });
   }
 });
 
+// -----------------------------------------
+// Health check
+// -----------------------------------------
 app.get('/api/health', (req, res) => {
-  res.json({ ok: true, message: 'Wariqa API is running' });
+  res.status(200).json({
+    ok: true,
+    message: 'Wariqa API is running'
+  });
 });
 
+// -----------------------------------------
+// SPA fallback
+// -----------------------------------------
+// IMPORTANT:
+// API routes are defined above this.
+// Unknown website routes receive public/index.html.
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'index.html'));
+  res.sendFile(path.join(publicDir, 'index.html'));
 });
 
+// -----------------------------------------
+// Start server
+// -----------------------------------------
 app.listen(port, () => {
   console.log(`Wariqa app running at http://localhost:${port}`);
 });
