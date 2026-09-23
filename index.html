@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#FDFBF7" />
+    <meta name="description" content="وَرِيقة — قصاصات وكلمات | تطبيق عربي أولاً لصناعة الذكريات والتصاميم الورقية الرقمية." />
+    <meta name="keywords" content="وَرِيقة, Wariqa, scrapbook, ذكريات, قصاصات, كلمات, Arabic scrapbook, memory app" />
+    <meta property="og:title" content="وَرِيقة — قصاصات وكلمات" />
+    <meta property="og:description" content="وَرِيقة تطبيق عربي أولاً يحول كلماتك وصورك وذكرياتك إلى قصاصات بصرية تشبهك." />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="assets/logo.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="وَرِيقة — قصاصات وكلمات" />
+    <meta name="twitter:description" content="وَرِيقة تطبيق عربي أولاً لصناعة الذكريات والتصاميم الورقية الرقمية." />
+    <link rel="canonical" href="https://example.com/" />
+    <link rel="manifest" href="manifest.webmanifest" />
+    <link rel="icon" href="assets/logo.png" type="image/png" />
+    <link rel="apple-touch-icon" href="assets/logo.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="css/style.css" />
+    <title>وَرِيقة — قصاصات وكلمات</title>
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container nav-shell">
+        <a href="#top" class="brand" aria-label="وَرِيقة home">
+          <img class="brand-mark" src="assets/logo.png" alt="" aria-hidden="true" />
+          <span class="brand-text">وَرِيقة</span>
+        </a>
+
+        <nav class="main-nav" aria-label="Main navigation">
+          <a href="#top" data-i18n="nav.home">الرئيسية</a>
+          <a href="#experience" data-i18n="nav.experience">التجربة</a>
+          <a href="#features" data-i18n="nav.features">المزايا</a>
+          <a href="#roadmap" data-i18n="nav.roadmap">الخارطة</a>
+          <a href="#faq" data-i18n="nav.faq">الأسئلة</a>
+        </nav>
+
+        <div class="header-tools">
+          <div class="lang-switcher" aria-label="Language switcher">
+            <button type="button" class="lang-btn active" data-lang="ar" aria-pressed="true">AR</button>
+            <button type="button" class="lang-btn" data-lang="fa" aria-pressed="false">FA</button>
+            <button type="button" class="lang-btn" data-lang="en" aria-pressed="false">EN</button>
+          </div>
+          <a href="#waitlist" class="button button-primary nav-cta" data-i18n="nav.waitlist">انضم إلى القائمة</a>
+        </div>
+      </div>
+    </header>
+
+    <main id="top">
+      <section class="hero section">
+        <div class="container hero-grid">
+          <div class="hero-copy">
+            <p class="eyebrow" data-i18n="hero.eyebrow">ذكرياتك في وَرِيقةٍ دافئة</p>
+            <h1 data-i18n="hero.title">وَرِيقة — قصاصات وكلمات</h1>
+            <p class="subtitle" data-i18n="hero.subtitle">مكانٌ صغير تحفظ فيه الأشياء التي لا تريد أن تنساها.</p>
+            <div class="hero-actions">
+              <a href="#experience" class="button button-primary" data-i18n="hero.primaryCTA">اكتشف وَرِيقة</a>
+              <a href="#waitlist" class="button button-secondary" data-i18n="hero.secondaryCTA">انضم لقائمة الانتظار</a>
+            </div>
+            <div class="hero-metrics" aria-label="Key stats">
+              <div class="metric-card">
+                <strong>0.x</strong>
+                <span data-i18n="hero.metric1">إصدار قيد التطوير</span>
+              </div>
+              <div class="metric-card">
+                <strong>AR</strong>
+                <span data-i18n="hero.metric2">تجربة عربية أولاً</span>
+              </div>
+              <div class="metric-card">
+                <strong>beta</strong>
+                <span data-i18n="hero.metric3">قريبًا / Coming Soon</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="hero-art" aria-label="وَرِيقة scrapbook preview">
+            <div class="paper-stack paper-one"></div>
+            <div class="paper-stack paper-two"></div>
+            <div class="polaroid-card main-polaroid">
+              <span class="tape tape-left"></span>
+              <span class="tape tape-right"></span>
+              <div class="photo-box">
+                <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=900&q=80" alt="Memory moment" loading="lazy" />
+              </div>
+              <div class="polaroid-copy">
+                <p class="quote">«الحضن الذي تبقى ألوانه في الذاكرة»</p>
+                <span>أمسية عائلية</span>
+              </div>
+            </div>
+            <div class="floating-note note-top">
+              <span class="tag">ذكريات</span>
+              <strong data-i18n="hero.note1">ألبوماتك في مكانٍ واحد</strong>
+            </div>
+            <div class="floating-note note-bottom">
+              <span class="tag warm">مميز</span>
+              <strong data-i18n="hero.note2">قصص يومية بمظهر ورقي</strong>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section experience" id="experience">
+        <div class="container">
+          <div class="section-head">
+            <p class="eyebrow" data-i18n="experience.eyebrow">تجربة وَرِيقة</p>
+            <h2 data-i18n="experience.title">مفهوم التطبيق الذي يرسم الحكاية بصريًا</h2>
+          </div>
+
+          <div class="experience-grid">
+            <article class="experience-card">
+              <div class="mini-window gallery-window">
+                <span class="window-dot dot-red"></span>
+                <span class="window-dot dot-yellow"></span>
+                <span class="window-dot dot-green"></span>
+                <div class="gallery-masonry">
+                  <span class="masonry-item tall"></span>
+                  <span class="masonry-item"></span>
+                  <span class="masonry-item wide"></span>
+                  <span class="masonry-item"></span>
+                </div>
+              </div>
+              <h3 data-i18n="experience.galleryTitle">المعرض</h3>
+              <p data-i18n="experience.galleryText">معرض إلهامي يفتح مساحة للذكريات، المقاطع، والنصوص، بلمسة ورقية مريحة.</p>
+            </article>
+
+            <article class="experience-card">
+              <div class="mini-window studio-window">
+                <span class="window-dot dot-red"></span>
+                <span class="window-dot dot-yellow"></span>
+                <span class="window-dot dot-green"></span>
+                <div class="studio-canvas">
+                  <div class="canvas-card large"></div>
+                  <div class="canvas-card small"></div>
+                  <div class="canvas-card tiny"></div>
+                  <div class="canvas-card text-card">ذكريات</div>
+                </div>
+              </div>
+              <h3 data-i18n="experience.studioTitle">الاستوديو</h3>
+              <p data-i18n="experience.studioText">مساحة مرنة لإضافة الصور، النص، الملاحظات، والملصقات، ثم تعديلها بسهولة.</p>
+            </article>
+
+            <article class="experience-card">
+              <div class="mini-window widget-window">
+                <span class="window-dot dot-red"></span>
+                <span class="window-dot dot-yellow"></span>
+                <span class="window-dot dot-green"></span>
+                <div class="widget-phone">
+                  <div class="widget-screen">
+                    <div class="widget-photo"></div>
+                    <div class="widget-title">ذكرى</div>
+                  </div>
+                </div>
+              </div>
+              <h3 data-i18n="experience.widgetTitle">Widget</h3>
+              <p data-i18n="experience.widgetText">خيارات مستقبلية لتجهيز تصميمات مختارة كـ Widget على الشاشة الرئيسية والهواتف.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section about-section" id="about">
+        <div class="container about-grid">
+          <div class="about-copy">
+            <p class="eyebrow" data-i18n="about.eyebrow">فكرة وَرِيقة</p>
+            <h2 data-i18n="about.title">ليست مجرد قوالب، بل قطع من قصتك.</h2>
+            <p data-i18n="about.text">وَرِيقة مساحة عربية أولاً تجمع الكلمات والصور والقصاصات والذكريات في تصاميم تشبه إحساسك، من أول فكرة حتى أجمل مشاركة.</p>
+            <div class="about-points">
+              <span data-i18n="about.point1">اكتب ما تشعر به</span>
+              <span data-i18n="about.point2">رتّب لحظتك بطريقتك</span>
+              <span data-i18n="about.point3">احتفظ بها قريبة منك</span>
+            </div>
+          </div>
+          <div class="about-manifesto" aria-label="Wariqa creative philosophy">
+            <span class="manifesto-stamp">WARIQA</span>
+            <strong data-i18n="about.manifesto">كلمات + صور + ورق = ذكرى تشبهك</strong>
+            <small data-i18n="about.manifestoNote">صمّمها ببطء. احتفظ بها طويلًا.</small>
+          </div>
+        </div>
+      </section>
+
+      <section class="section playground-section" id="playground">
+        <div class="container playground-shell">
+          <div class="section-head">
+            <p class="eyebrow" data-i18n="playground.eyebrow">تجربة تفاعلية</p>
+            <h2 data-i18n="playground.title">لعبة قصاصات صغيرة قبل إطلاق التطبيق</h2>
+          </div>
+
+          <div class="playground-layout">
+            <div class="playground-sidebar">
+              <ul class="tool-list">
+                <li data-i18n="playground.item1">اسحب العناصر وقلّبها</li>
+                <li data-i18n="playground.item2">أضف ملصقًا أو شريط Washi</li>
+                <li data-i18n="playground.item3">غَيّر ترتيب الطبقات</li>
+                <li data-i18n="playground.item4">أضف ملاحظة نصية</li>
+              </ul>
+              <div class="playground-actions">
+                <button type="button" class="button button-secondary" id="resetBoard" data-i18n="playground.reset">إعادة اللوحة</button>
+                <button type="button" class="button button-primary" id="addNote" data-i18n="playground.addNote">إضافة ملاحظة</button>
+              </div>
+            </div>
+
+            <div class="playground-board" id="playgroundBoard" aria-label="Scrapbook board">
+              <div class="scrap-item photo-item" draggable="true" data-role="photo" style="left: 10%; top: 12%;">
+                <span class="tape tape-left"></span>
+                <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=700&q=80" alt="Memory" loading="lazy" />
+                <p>مذكرات</p>
+              </div>
+              <div class="scrap-item quote-item" draggable="true" data-role="quote" style="left: 52%; top: 18%;">
+                <span class="tape tape-right"></span>
+                <blockquote>«الذكريات تُصنع ببطءٍ، ثم تبقى»</blockquote>
+              </div>
+              <div class="scrap-item sticker-item" draggable="true" data-role="sticker" style="left: 62%; top: 52%;">
+                <span class="sticker-mark">حب</span>
+              </div>
+              <div class="scrap-item tape-item" draggable="true" data-role="tape" style="left: 16%; top: 58%;">
+                <span class="tape-strip"></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section templates-section">
+        <div class="container">
+          <div class="section-head">
+            <p class="eyebrow" data-i18n="templates.eyebrow">قوالب جاهزة</p>
+            <h2 data-i18n="templates.title">قوالب تُلامس روح الذاكرة</h2>
+          </div>
+          <div class="template-grid">
+            <article class="template-card">
+              <div class="template-preview template-one"></div>
+              <div class="template-meta">
+                <span class="chip" data-i18n="templates.tag1">رسالة من الذاكرة</span>
+                <h3 data-i18n="templates.name1">رسالة من الذاكرة</h3>
+              </div>
+            </article>
+            <article class="template-card">
+              <div class="template-preview template-two"></div>
+              <div class="template-meta">
+                <span class="chip" data-i18n="templates.tag2">أيام العائلة</span>
+                <h3 data-i18n="templates.name2">أيام العائلة</h3>
+              </div>
+            </article>
+            <article class="template-card">
+              <div class="template-preview template-three"></div>
+              <div class="template-meta">
+                <span class="chip" data-i18n="templates.tag3">خطوط عربية</span>
+                <h3 data-i18n="templates.name3">قصيدة في الحائط</h3>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section library-section">
+        <div class="container">
+          <div class="section-head">
+            <p class="eyebrow" data-i18n="library.eyebrow">مكتبة العناصر</p>
+            <h2 data-i18n="library.title">أصول تصميمية مخصصة لروح وَرِيقة</h2>
+          </div>
+          <div class="asset-grid">
+            <article class="asset-card"><span>📄</span><h3 data-i18n="library.paper">Paper</h3></article>
+            <article class="asset-card"><span>✨</span><h3 data-i18n="library.stickers">Stickers</h3></article>
+            <article class="asset-card"><span>🧵</span><h3 data-i18n="library.tapes">Washi Tape</h3></article>
+            <article class="asset-card"><span>🖼️</span><h3 data-i18n="library.polaroids">Polaroids</h3></article>
+            <article class="asset-card"><span>🌿</span><h3 data-i18n="library.botanical">Botanical</h3></article>
+            <article class="asset-card"><span>🪷</span><h3 data-i18n="library.arabic">Arabic Decorations</h3></article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section features-section" id="features">
+        <div class="container">
+          <div class="section-head">
+            <p class="eyebrow" data-i18n="features.eyebrow">المزايا الأساسية</p>
+            <h2 data-i18n="features.title">ما الذي يجعل وَرِيقة تجربة فكرية ومرئية مميزة؟</h2>
+          </div>
+
+          <div class="feature-grid">
+            <article class="feature-card">
+              <span class="feature-icon">🖋️</span>
+              <h3 data-i18n="feature1.title">خط عربي متوازن</h3>
+              <p data-i18n="feature1.text">تجربة عربية أولاً، مع دعم واضح للخطوط العربية والاقتراحات اللغوية المريحة.</p>
+            </article>
+            <article class="feature-card">
+              <span class="feature-icon">🧩</span>
+              <h3 data-i18n="feature2.title">قوالب قابلة للتعديل</h3>
+              <p data-i18n="feature2.text">يمكن للمستخدم إنشاء صفحة كرتونية عاطفية وتعديل النصوص والصور والطبقات بشكل مرن.</p>
+            </article>
+            <article class="feature-card">
+              <span class="feature-icon">📜</span>
+              <h3 data-i18n="feature3.title">أدوات ورقية</h3>
+              <p data-i18n="feature3.text">أشرطة Washi، ملصقات، أطر Polaroid، وأدوات ورقية تضيف إحساسًا بالفخامة والدفء.</p>
+            </article>
+            <article class="feature-card">
+              <span class="feature-icon">⬇️</span>
+              <h3 data-i18n="feature4.title">تصدير عالي الجودة</h3>
+              <p data-i18n="feature4.text">تصدير الصور بدقة عالية لاستخدامها في القصص أو القوالب أو مشاركة الذاكرة ببساطة.</p>
+            </article>
+            <article class="feature-card is-planned">
+              <span class="feature-icon">👥</span>
+              <h3 data-i18n="feature5.title">مجتمع من المستخدمين</h3>
+              <p data-i18n="feature5.text">ميزة مخطط لها/Coming Later، مع قدرة مستقبلية على مشاركة الحكايات والتجارب.</p>
+            </article>
+            <article class="feature-card is-planned">
+              <span class="feature-icon">☁️</span>
+              <h3 data-i18n="feature6.title">مزامنة سحابية</h3>
+              <p data-i18n="feature6.text">ميزة مخطط لها/Coming Later لتخزين الصفحات والذكريات عبر الحسابات.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section future-section" id="future">
+        <div class="container">
+          <div class="section-head">
+            <p class="eyebrow" data-i18n="future.eyebrow">أكثر من تطبيق</p>
+            <h2 data-i18n="future.title">كل تفصيلة تفتح طريقة جديدة للحفظ.</h2>
+            <p data-i18n="future.text">نبني وَرِيقة لتكون رفيقك الإبداعي: هادئة عند الكتابة، مرنة عند التصميم، وقريبة عندما تريد استعادة لحظة.</p>
+          </div>
+          <div class="future-grid">
+            <article class="future-card"><span>✦</span><h3 data-i18n="future.card1Title">مذكرات ذكية</h3><p data-i18n="future.card1Text">حوّل يومك أو سفرك أو رسالة لم تُرسل إلى صفحة بصرية تحفظ الإحساس.</p></article>
+            <article class="future-card"><span>◌</span><h3 data-i18n="future.card2Title">مكتبة شخصية</h3><p data-i18n="future.card2Text">اجمع أوراقك وملصقاتك وقوالبك المفضلة في عالم تصميم خاص بك.</p></article>
+            <article class="future-card"><span>↗</span><h3 data-i18n="future.card3Title">مشاركة أجمل</h3><p data-i18n="future.card3Text">صدّر قصاصتك بجودة عالية أو شاركها كصورة أو Widget عندما تصبح جاهزة.</p></article>
+            <article class="future-card"><span>⌁</span><h3 data-i18n="future.card4Title">إلهام عند الحاجة</h3><p data-i18n="future.card4Text">أفكار للعبارات والعناوين والتنسيق تساعدك عندما تتوقف الكلمات قليلًا.</p></article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section ideas-section" id="ideas">
+        <div class="container ideas-grid">
+          <div class="ideas-copy">
+            <p class="eyebrow" data-i18n="ideas.eyebrow">نبنيها معًا</p>
+            <h2 data-i18n="ideas.title">ما الفكرة التي تتمنى أن تراها في وَرِيقة؟</h2>
+            <p data-i18n="ideas.text">أرسل اقتراحك أو الميزة التي تتخيلها. كل فكرة تساعدنا على جعل التطبيق أصدق وأقرب للمستخدمين.</p>
+            <div class="contact-strip">
+              <a href="mailto:wriqa.app@gmail.com">wriqa.app@gmail.com</a>
+              <a href="https://t.me/z3e3s" target="_blank" rel="noreferrer">Telegram: z3e3s</a>
+            </div>
+          </div>
+          <form class="ideas-form" id="ideasForm">
+            <label for="ideaName" data-i18n="ideas.nameLabel">اسمك أو اسم المستخدم</label>
+            <input id="ideaName" name="name" type="text" data-i18n-placeholder="ideas.namePlaceholder" placeholder="مثال: محب الذكريات" />
+            <label for="ideaMessage" data-i18n="ideas.messageLabel">فكرتك أو الميزة المقترحة</label>
+            <textarea id="ideaMessage" name="message" rows="5" required data-i18n-placeholder="ideas.messagePlaceholder" placeholder="اكتب فكرتك بالتفصيل..."></textarea>
+            <button type="submit" class="button button-primary" data-i18n="ideas.submit">أرسل فكرتك</button>
+            <p class="form-message" id="ideasMessage" aria-live="polite"></p>
+          </form>
+        </div>
+      </section>
+
+      <section class="section roadmap-section" id="roadmap">
+        <div class="container">
+          <div class="section-head">
+            <p class="eyebrow" data-i18n="roadmap.eyebrow">خارطة التطوير</p>
+            <h2 data-i18n="roadmap.title">ستبقى الخطة مرنة حتى يعلن القرار الرسمي</h2>
+          </div>
+          <div class="roadmap-shell">
+            <div class="roadmap-list" id="roadmapList"></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section waitlist-section" id="waitlist">
+        <div class="container waitlist-shell">
+          <div class="waitlist-copy">
+            <p class="eyebrow" data-i18n="waitlist.eyebrow">انضم الآن</p>
+            <h2 data-i18n="waitlist.title">كن أول من يعرف عن التحديثات القادمة</h2>
+            <p data-i18n="waitlist.text">سنجمع لك الوصول المبكر إلى تجربة التحديات الأولية وقائمة الانتظار عند اقتراب الإطلاق الرسمي.</p>
+          </div>
+
+          <form class="waitlist-form" id="waitlistForm" novalidate>
+            <div class="input-group">
+              <label for="waitlistInput" class="sr-only" data-i18n="waitlist.label">البريد الإلكتروني أو الهاتف</label>
+              <input id="waitlistInput" type="text" data-i18n-placeholder="waitlist.placeholder" placeholder="أدخل بريدك الإلكتروني أو رقم هاتفك" />
+            </div>
+            <div class="select-group">
+              <label for="preferredLang" class="sr-only" data-i18n="waitlist.languageLabel">اللغة المفضلة</label>
+              <select id="preferredLang" aria-label="Preferred language">
+                <option value="ar">العربية</option>
+                <option value="fa">فارسی</option>
+                <option value="en">English</option>
+              </select>
+            </div>
+            <button type="submit" class="button button-primary" data-i18n="waitlist.submit">تسجيل</button>
+            <p class="form-message" id="formMessage" aria-live="polite"></p>
+          </form>
+        </div>
+      </section>
+
+      <section class="section faq-section" id="faq">
+        <div class="container faq-shell">
+          <div class="section-head">
+            <p class="eyebrow" data-i18n="faq.eyebrow">الأسئلة الشائعة</p>
+            <h2 data-i18n="faq.title">كل ما تحتاج لمعرفته عن وَرِيقة</h2>
+          </div>
+          <div class="faq-list">
+            <div class="faq-item active">
+              <button type="button" class="faq-question">
+                <span data-i18n="faq.q1">ما هو تطبيق وَرِيقة؟</span>
+                <span class="faq-sign">+</span>
+              </button>
+              <div class="faq-answer">
+                <p data-i18n="faq.a1">تطبيق عربي أولاً مصمم لصنع الذكريات من خلال نصوص، صور، قصاصات ورقية، وقوالب قابلة للتعديل.</p>
+              </div>
+            </div>
+            <div class="faq-item">
+              <button type="button" class="faq-question">
+                <span data-i18n="faq.q2">هل التطبيق مجاني؟</span>
+                <span class="faq-sign">+</span>
+              </button>
+              <div class="faq-answer">
+                <p data-i18n="faq.a2">لم يتم الإعلان عن التفاصيل النهائية بعد، وسيتم الإعلان عنها بشكل رسمي عند التحديد.</p>
+              </div>
+            </div>
+            <div class="faq-item">
+              <button type="button" class="faq-question">
+                <span data-i18n="faq.q3">متى سيتم إطلاقه؟</span>
+                <span class="faq-sign">+</span>
+              </button>
+              <div class="faq-answer">
+                <p data-i18n="faq.a3">لم يتم الإعلان عن تاريخ إطلاق محدد بعد، وسيتم الإعلان عنه رسميًا عند التحديد.</p>
+              </div>
+            </div>
+            <div class="faq-item">
+              <button type="button" class="faq-question">
+                <span data-i18n="faq.q4">هل يدعم العربية؟</span>
+                <span class="faq-sign">+</span>
+              </button>
+              <div class="faq-answer">
+                <p data-i18n="faq.a4">نعم، التصميم العربي أولاً مدعوم بالكامل، مع دعم الفارسية والإنجليزية أيضًا.</p>
+              </div>
+            </div>
+            <div class="faq-item">
+              <button type="button" class="faq-question">
+                <span data-i18n="faq.q5">هل يمكنني استخدام تصاميمي كـ Widget؟</span>
+                <span class="faq-sign">+</span>
+              </button>
+              <div class="faq-answer">
+                <p data-i18n="faq.a5">هذا خيار مخطط له/Coming Later، ولم يتم الإعلان عن التفاصيل النهائية بعد.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-shell">
+        <div class="footer-branding">
+          <a href="#top" class="brand footer-brand" aria-label="وَرِيقة home">
+            <img class="brand-mark" src="assets/logo.png" alt="" aria-hidden="true" />
+            <span class="brand-text">وَرِيقة</span>
+          </a>
+          <p data-i18n="footer.tagline">قصاصات وكلمات تحفظ ما لا تريد أن تنساه.</p>
+        </div>
+
+        <div class="footer-links">
+          <a href="#top" data-i18n="nav.home">الرئيسية</a>
+          <a href="#features" data-i18n="nav.features">المزايا</a>
+          <a href="#roadmap" data-i18n="nav.roadmap">الخارطة</a>
+          <a href="#faq" data-i18n="nav.faq">الأسئلة</a>
+          <a href="#ideas" data-i18n="footer.privacy">شارك فكرتك</a>
+          <a href="mailto:wriqa.app@gmail.com" data-i18n="footer.contact">التواصل</a>
+        </div>
+
+        <div class="footer-socials" aria-label="Social media">
+          <a href="https://www.instagram.com/z3e3sz" target="_blank" rel="noreferrer" aria-label="Instagram">Instagram</a>
+          <a href="https://twitter.com/rki4bn" target="_blank" rel="noreferrer" aria-label="X">X</a>
+          <a href="https://www.tiktok.com/@z3e3s" target="_blank" rel="noreferrer" aria-label="TikTok">TikTok</a>
+          <span class="social-handle" aria-label="WhatsApp">WhatsApp: z3e3s</span>
+        </div>
+      </div>
+      <div class="container footer-meta">
+        <span>© <span id="year"></span> وَرِيقة — جميع الحقوق محفوظة</span>
+      </div>
+    </footer>
+
+    <aside class="assistant-widget" aria-live="polite">
+      <button type="button" class="assistant-toggle" id="assistantToggle" aria-expanded="false" aria-controls="assistantPanel">
+        <span class="assistant-icon">✦</span>
+        <span data-i18n="assistant.toggle">مساعد وَرِيقة</span>
+      </button>
+
+      <div class="assistant-panel" id="assistantPanel" hidden>
+        <div class="assistant-header">
+          <div>
+            <strong data-i18n="assistant.name">مساعد وَرِيقة</strong>
+            <small data-i18n="assistant.status">متصل الآن</small>
+          </div>
+          <button type="button" class="assistant-close" id="assistantClose" aria-label="Close widget">×</button>
+        </div>
+
+        <div class="suggested-questions" aria-label="Suggested questions">
+          <button type="button" class="suggestion" data-suggestion="ما هو تطبيق وَرِيقة؟">ما هو تطبيق وَرِيقة؟</button>
+          <button type="button" class="suggestion" data-suggestion="ماذا يمكنني تصميم؟">ماذا يمكنني تصميم؟</button>
+          <button type="button" class="suggestion" data-suggestion="ما هي القوالب؟">ما هي القوالب؟</button>
+          <button type="button" class="suggestion" data-suggestion="كيف تعمل Widgets؟">كيف تعمل Widgets؟</button>
+        </div>
+
+        <div class="chat-history" id="chatHistory">
+          <div class="message bot">
+            <p data-i18n="assistant.greeting">مرحبًا! أنا مساعد وَرِيقة، أستطيع أن أساعدك في كل ما يتعلق بالتطبيق، القوالب والذكريات.</p>
+          </div>
+        </div>
+
+        <form class="assistant-form" id="assistantForm">
+          <input id="assistantInput" type="text" data-i18n-placeholder="assistant.placeholder" placeholder="اسأل عن وَرِيقة أو ذاكرتك..." aria-label="Ask the assistant" />
+          <button type="submit" class="button button-primary" data-i18n="assistant.send">إرسال</button>
+        </form>
+      </div>
+    </aside>
+
+    <script src="js/i18n.js"></script>
+    <script src="js/playground.js"></script>
+    <script src="js/chat.js"></script>
+    <script src="js/app.js"></script>
+  </body>
+</html>
