@@ -1017,6 +1017,168 @@ p {
   box-shadow: 0 0 0 4px rgba(192,108,84,0.08);
 }
 
+.launch-section {
+  overflow: hidden;
+  background: rgba(244,239,230,0.52);
+}
+
+.launch-shell {
+  position: relative;
+  display: grid;
+  justify-items: center;
+  gap: 18px;
+  padding: 42px 24px 46px;
+  border: 1px solid var(--line);
+  border-radius: 30px;
+  background: rgba(255,255,255,0.62);
+  box-shadow: var(--shadow-soft);
+  isolation: isolate;
+}
+
+.launch-shell::before {
+  content: "";
+  position: absolute;
+  inset: 18px;
+  border: 1px dashed rgba(139,104,74,0.2);
+  border-radius: 22px;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.launch-paper {
+  position: absolute;
+  width: 150px;
+  height: 110px;
+  background: var(--paper-deep);
+  opacity: 0.48;
+  z-index: -1;
+}
+
+.launch-paper-back {
+  top: -24px;
+  inset-inline-end: 8%;
+  transform: rotate(8deg);
+  border-radius: 12px 32px 10px 26px;
+}
+
+.launch-icon-wrap {
+  position: relative;
+  animation: launch-arrival 0.7s ease both;
+}
+
+.launch-icon {
+  width: 104px;
+  height: 104px;
+  object-fit: cover;
+  border-radius: 28px;
+  box-shadow: 0 18px 30px rgba(51,39,31,0.16);
+}
+
+.launch-tape {
+  position: absolute;
+  top: -12px;
+  inset-inline-start: 10px;
+  width: 84px;
+  height: 20px;
+  background: var(--tape);
+  border: 1px solid rgba(51,39,31,0.08);
+  transform: rotate(-7deg);
+  z-index: 1;
+}
+
+.launch-copy {
+  text-align: center;
+}
+
+.launch-copy h2 { margin-top: 2px; }
+
+.launch-subtitle {
+  margin-top: 10px;
+  color: var(--muted);
+  font-size: 1.05rem;
+}
+
+.platform-list {
+  width: min(100%, 700px);
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+  margin-top: 8px;
+}
+
+.platform-card {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  gap: 12px;
+  min-height: 82px;
+  padding: 14px 16px;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background: rgba(255,255,255,0.7);
+  box-shadow: var(--shadow-soft);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.platform-card:hover { transform: translateY(-2px); box-shadow: var(--shadow); }
+
+.platform-mark {
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 13px;
+  color: var(--white);
+  font-family: "Playfair Display", serif;
+  font-size: 1.35rem;
+  font-weight: 700;
+}
+
+.platform-mark img { width: 24px; height: 24px; object-fit: contain; }
+
+.platform-android { background: #7ca982; }
+.platform-ios { background: var(--ink); }
+
+.platform-copy { display: grid; gap: 1px; }
+.platform-copy strong { font-family: "Playfair Display", "Cairo", serif; font-size: 1.15rem; }
+.platform-copy small { color: var(--terracotta); font-weight: 700; }
+.platform-action { grid-column: 1 / -1; color: var(--muted); font-size: 0.78rem; }
+
+.launch-countdown {
+  display: grid;
+  justify-items: center;
+  gap: 7px;
+  margin-top: 8px;
+  text-align: center;
+}
+
+.launch-date-label,
+.countdown-label { color: var(--muted); font-size: 0.9rem; font-weight: 700; }
+.launch-date { color: var(--brown); font-family: "Playfair Display", "Cairo", serif; font-size: 1.6rem; font-weight: 700; }
+.countdown-label { margin-top: 8px; color: var(--terracotta); }
+
+.countdown-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(70px, 1fr));
+  gap: 10px;
+}
+
+.countdown-unit {
+  min-width: 78px;
+  padding: 10px 12px;
+  border-radius: 15px;
+  background: rgba(244,239,230,0.72);
+  border: 1px solid rgba(51,39,31,0.08);
+}
+
+.countdown-unit strong { display: block; color: var(--ink); font-size: 1.55rem; line-height: 1.2; }
+.countdown-unit span { color: var(--muted); font-size: 0.76rem; }
+
+@keyframes launch-arrival {
+  from { opacity: 0; transform: translateY(10px) rotate(-4deg); }
+  to { opacity: 1; transform: translateY(0) rotate(0); }
+}
+
 .form-message {
   min-height: 24px;
   color: var(--danger);
@@ -1442,6 +1604,16 @@ body[dir="ltr"] .experience-card {
   .sticker-item { width: 64px; height: 64px; }
 
   .waitlist-shell { padding: 20px 16px; }
+  .launch-shell { padding: 34px 16px 36px; }
+  .launch-shell::before { inset: 12px; }
+  .launch-icon { width: 88px; height: 88px; border-radius: 24px; }
+  .launch-subtitle { max-width: 290px; font-size: 0.95rem; }
+  .platform-list { grid-template-columns: 1fr; gap: 10px; }
+  .platform-card { min-height: 76px; }
+  .countdown-grid { width: 100%; gap: 6px; }
+  .countdown-unit { min-width: 0; padding: 9px 5px; }
+  .countdown-unit strong { font-size: 1.25rem; }
+  .countdown-unit span { font-size: 0.68rem; }
   .ideas-form { padding: 20px 16px; }
   .footer-shell { align-items: stretch; }
   .footer-links, .footer-socials { gap: 10px; }

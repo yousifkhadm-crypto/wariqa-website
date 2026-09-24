@@ -403,6 +403,46 @@
         </div>
       </section>
 
+      <section class="section launch-section" id="launch" aria-labelledby="launchTitle">
+        <div class="container launch-shell">
+          <div class="launch-paper launch-paper-back" aria-hidden="true"></div>
+          <div class="launch-icon-wrap">
+            <span class="launch-tape" aria-hidden="true"></span>
+            <img class="launch-icon" src="assets/logo.png" alt="أيقونة تطبيق وَرِيقة" loading="lazy" />
+          </div>
+          <div class="launch-copy">
+            <p class="eyebrow" data-i18n="launch.eyebrow">لحظة قادمة</p>
+            <h2 id="launchTitle" data-i18n="launch.title">وَرِيقة... تقترب</h2>
+            <p class="launch-subtitle" data-i18n="launch.subtitle">قصاصاتك وذكرياتك ستصل إلى هاتفك قريبًا.</p>
+          </div>
+
+          <div class="platform-list" aria-label="منصات التطبيق">
+            <div class="platform-card">
+              <span class="platform-mark platform-android"><img src="assets/icons/android.svg" alt="Android" /></span>
+              <span class="platform-copy"><strong>Android</strong><small data-i18n="launch.comingSoon">قريبًا</small></span>
+              <span class="platform-action" data-i18n="launch.availableSoon">سيكون متاحًا قريبًا</span>
+            </div>
+            <div class="platform-card">
+              <span class="platform-mark platform-ios"><img src="assets/icons/apple.svg" alt="Apple" /></span>
+              <span class="platform-copy"><strong>iOS</strong><small data-i18n="launch.comingSoon">قريبًا</small></span>
+              <span class="platform-action" data-i18n="launch.availableSoon">سيكون متاحًا قريبًا</span>
+            </div>
+          </div>
+
+          <div class="launch-countdown" aria-live="polite">
+            <p class="launch-date-label" data-i18n="launch.dateLabel">موعد إطلاق وَرِيقة</p>
+            <time class="launch-date" id="launchDate" datetime="2026-12-24" data-i18n="launch.date">24 ديسمبر 2026</time>
+            <p class="countdown-label" id="countdownLabel" data-i18n="launch.remaining">المدة المتبقية</p>
+            <div class="countdown-grid" id="countdownGrid">
+              <div class="countdown-unit"><strong id="countdownDays">0</strong><span data-i18n="launch.days">يومًا</span></div>
+              <div class="countdown-unit"><strong id="countdownHours">0</strong><span data-i18n="launch.hours">ساعة</span></div>
+              <div class="countdown-unit"><strong id="countdownMinutes">0</strong><span data-i18n="launch.minutes">دقيقة</span></div>
+              <div class="countdown-unit"><strong id="countdownSeconds">0</strong><span data-i18n="launch.seconds">ثانية</span></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <section class="section faq-section" id="faq">
         <div class="container faq-shell">
           <div class="section-head">

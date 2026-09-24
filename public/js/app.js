@@ -1,4 +1,52 @@
 document.addEventListener('DOMContentLoaded', () => {
+  const LAUNCH_DATE = '2026-12-24T00:00:00Z';
+
+  function initLaunchCountdown() {
+    const dateNode = document.getElementById('launchDate');
+    const countdownLabel = document.getElementById('countdownLabel');
+    const countdownGrid = document.getElementById('countdownGrid');
+    const daysNode = document.getElementById('countdownDays');
+    const hoursNode = document.getElementById('countdownHours');
+    const minutesNode = document.getElementById('countdownMinutes');
+    const secondsNode = document.getElementById('countdownSeconds');
+
+    if (!dateNode || !countdownLabel || !countdownGrid || !daysNode || !hoursNode || !minutesNode || !secondsNode) return;
+
+    dateNode.dateTime = LAUNCH_DATE;
+
+    const updateCountdown = () => {
+      const remaining = Math.max(0, new Date(LAUNCH_DATE).getTime() - Date.now());
+      const totalSeconds = Math.floor(remaining / 1000);
+      const days = Math.floor(totalSeconds / 86400);
+      const hours = Math.floor((totalSeconds % 86400) / 3600);
+      const minutes = Math.floor((totalSeconds % 3600) / 60);
+      const seconds = totalSeconds % 60;
+      const isLaunched = remaining === 0;
+      const lang = document.documentElement.lang || 'ar';
+
+      daysNode.textContent = days;
+      hoursNode.textContent = hours;
+      minutesNode.textContent = minutes;
+      secondsNode.textContent = seconds;
+
+      if (isLaunched) {
+        countdownLabel.textContent = translations[lang]?.['launch.launched'] || translations.ar['launch.launched'];
+        countdownGrid.hidden = true;
+        dateNode.textContent = translations[lang]?.['launch.live'] || translations.ar['launch.live'];
+        return;
+      }
+
+      countdownLabel.textContent = translations[lang]?.['launch.remaining'] || translations.ar['launch.remaining'];
+      countdownGrid.hidden = false;
+    };
+
+    updateCountdown();
+    window.setInterval(updateCountdown, 1000);
+    document.addEventListener('waraq-language-changed', updateCountdown);
+  }
+
+  initLaunchCountdown();
+
   const navToggle = document.getElementById('navToggle');
   const mainNav = document.getElementById('mainNav');
   if (navToggle && mainNav) {
