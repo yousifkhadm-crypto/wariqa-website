@@ -1,4 +1,84 @@
 document.addEventListener('DOMContentLoaded', () => {
+  const memoryInput = document.getElementById('memoryText');
+  const memoryPreview = document.getElementById('memoryPreviewText');
+  const memoryDate = document.getElementById('memoryPreviewDate');
+  const memoryCount = document.getElementById('memoryCharacterCount');
+
+  if (memoryInput && memoryPreview && memoryDate && memoryCount) {
+    const today = new Intl.DateTimeFormat('ar', { day: 'numeric', month: 'long', year: 'numeric' }).format(new Date());
+    memoryDate.textContent = today;
+
+    memoryInput.addEventListener('input', () => {
+      const value = memoryInput.value.trim();
+      memoryPreview.textContent = value || 'اكتب جملة صغيرة، وستظهر هنا كذكرى.';
+      memoryCount.textContent = `${memoryInput.value.length} / ${memoryInput.maxLength}`;
+      memoryPreview.classList.toggle('has-content', Boolean(value));
+    });
+  }
+
+  const categoryPreview = document.getElementById('categoryPreview');
+  const categoryTabs = document.querySelectorAll('.category-tab');
+  const categoryContent = {
+    memories: {
+      className: 'preview-memory',
+      description: 'صور + تاريخ + كلمات',
+      cards: ['صورة من الأمس', '23 سبتمبر', 'لحظة لا تُنسى', 'ملاحظة صغيرة']
+    },
+    letters: {
+      className: 'preview-letter',
+      description: 'رسالة إلى شخص تحبه',
+      cards: ['إلى صديقي', 'بخط يدي', 'مع كل الامتنان', 'افتحها بهدوء']
+    },
+    quotes: {
+      className: 'preview-quote',
+      description: 'كلمات وأفكار تستحق البقاء',
+      cards: ['«تبقى الأشياء الجميلة»', 'فكرة اليوم', 'بين السطور', 'كلمة أحبها']
+    },
+    poetry: {
+      className: 'preview-poetry',
+      description: 'أبيات وقصائدك المفضلة',
+      cards: ['قصيدة أحبها', 'بيت من الذاكرة', 'على هامش الورق', 'صوت القصيدة']
+    },
+    journals: {
+      className: 'preview-journal',
+      description: 'لحظة من يومك',
+      cards: ['صباح هادئ', 'ما حدث اليوم', 'مزاجي الآن', 'غدًا أجمل']
+    },
+    verses: {
+      className: 'preview-verse',
+      description: 'بتصميم هادئ ومحترم',
+      cards: ['آية أتأملها', 'طمأنينة', 'ورد اليوم', 'بخط هادئ']
+    }
+  };
+
+  function renderCategory(key) {
+    if (!categoryPreview || !categoryContent[key]) return;
+    const category = categoryContent[key];
+    categoryPreview.className = `category-preview ${category.className}`;
+    categoryPreview.innerHTML = `
+      <div class="category-preview-heading">
+        <span class="category-preview-kicker">${category.description}</span>
+        <span class="category-preview-mark">✦</span>
+      </div>
+      <div class="category-preview-grid">
+        ${category.cards.map((card, index) => `<div class="category-preview-card preview-card-${index + 1}"><span>${card}</span><i aria-hidden="true">${index % 2 === 0 ? '✦' : '⌁'}</i></div>`).join('')}
+      </div>`;
+  }
+
+  if (categoryPreview && categoryTabs.length) {
+    renderCategory('memories');
+    categoryTabs.forEach((tab) => {
+      tab.addEventListener('click', () => {
+        categoryTabs.forEach((item) => {
+          const active = item === tab;
+          item.classList.toggle('is-active', active);
+          item.setAttribute('aria-selected', String(active));
+        });
+        renderCategory(tab.dataset.category);
+      });
+    });
+  }
+
   const LAUNCH_DATE = '2026-12-24T00:00:00Z';
 
   function initLaunchCountdown() {

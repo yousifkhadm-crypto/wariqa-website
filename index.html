@@ -184,6 +184,79 @@
         </div>
       </section>
 
+      <section class="section memory-demo-section" id="memory-demo" aria-labelledby="memoryDemoTitle">
+        <div class="container memory-demo-shell">
+          <div class="section-head memory-demo-heading">
+            <p class="eyebrow" data-i18n="demo.eyebrow">تجربة صغيرة</p>
+            <h2 id="memoryDemoTitle" data-i18n="demo.title">اصنع ذكرى قبل أن تصل وريقة</h2>
+            <p data-i18n="demo.subtitle">جرّب لمحة صغيرة من عالم وريقة، واكتب شيئًا تريد الاحتفاظ به.</p>
+          </div>
+          <div class="memory-demo-grid">
+            <div class="memory-demo-input">
+              <label for="memoryText" data-i18n="demo.inputLabel">اكتب شيئًا تريد الاحتفاظ به...</label>
+              <textarea id="memoryText" maxlength="180" rows="5" data-i18n-placeholder="demo.placeholder" placeholder="اكتب شيئًا تريد الاحتفاظ به..."></textarea>
+              <div class="memory-demo-meta"><span data-i18n="demo.privateNote">تبقى هذه اللمحة على جهازك فقط.</span><span id="memoryCharacterCount">0 / 180</span></div>
+            </div>
+            <div class="memory-paper-wrap">
+              <article class="memory-paper" aria-live="polite">
+                <span class="memory-paper-tape" aria-hidden="true"></span>
+                <span class="memory-paper-stamp" aria-hidden="true">✦</span>
+                <p class="memory-paper-kicker" data-i18n="demo.paperKicker">من يومياتي</p>
+                <p class="memory-paper-text" id="memoryPreviewText" data-i18n="demo.emptyPreview">اكتب جملة صغيرة، وستظهر هنا كذكرى.</p>
+                <div class="memory-paper-footer"><span id="memoryPreviewDate"></span><span>وَرِيقة</span></div>
+              </article>
+            </div>
+          </div>
+          <div class="memory-demo-footer">
+            <p data-i18n="demo.caption">هذه مجرد لمحة من وريقة ✦</p>
+            <span data-i18n="demo.captionNote">المزيد من الذكريات ينتظرك داخل التطبيق.</span>
+            <a class="button button-secondary" href="#launch" data-i18n="demo.cta">اكتشف وريقة</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="section category-section" id="create" aria-labelledby="categoryTitle">
+        <div class="container">
+          <div class="section-head">
+            <p class="eyebrow" data-i18n="create.eyebrow">مساحتك الخاصة</p>
+            <h2 id="categoryTitle" data-i18n="create.title">ماذا يمكنك أن تصنع؟</h2>
+            <p data-i18n="create.subtitle">كل لحظة يمكن أن تصبح قصاصة تستحق الاحتفاظ بها.</p>
+          </div>
+          <div class="category-layout">
+            <div class="category-selector" role="tablist" aria-label="أنواع الذكريات">
+              <button class="category-tab is-active" type="button" role="tab" aria-selected="true" data-category="memories">ذكريات</button>
+              <button class="category-tab" type="button" role="tab" aria-selected="false" data-category="letters">رسائل</button>
+              <button class="category-tab" type="button" role="tab" aria-selected="false" data-category="quotes">اقتباسات</button>
+              <button class="category-tab" type="button" role="tab" aria-selected="false" data-category="poetry">شعر</button>
+              <button class="category-tab" type="button" role="tab" aria-selected="false" data-category="journals">يوميات</button>
+              <button class="category-tab" type="button" role="tab" aria-selected="false" data-category="verses">آيات</button>
+            </div>
+            <div class="category-preview" id="categoryPreview" aria-live="polite"></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section story-section" id="story" aria-labelledby="storyTitle">
+        <div class="container">
+          <div class="section-head">
+            <p class="eyebrow" data-i18n="story.eyebrow">رحلة الذكرى</p>
+            <h2 id="storyTitle" data-i18n="story.title">من ورقة إلى ذكرى</h2>
+            <p data-i18n="story.subtitle">خمس خطوات بسيطة لتحوّل كلماتك إلى شيء يستحق الاحتفاظ به.</p>
+          </div>
+          <div class="story-track">
+            <article class="story-step"><span class="story-number">01</span><span class="story-glyph">✎</span><h3 data-i18n="story.step1Title">اكتب</h3><p data-i18n="story.step1Text">اكتب كلماتك</p></article>
+            <span class="story-connector" aria-hidden="true">↓</span>
+            <article class="story-step"><span class="story-number">02</span><span class="story-glyph">✦</span><h3 data-i18n="story.step2Title">زيّن</h3><p data-i18n="story.step2Text">اختر الورق والقصاصات</p></article>
+            <span class="story-connector" aria-hidden="true">↓</span>
+            <article class="story-step"><span class="story-number">03</span><span class="story-glyph">⌁</span><h3 data-i18n="story.step3Title">احفظ</h3><p data-i18n="story.step3Text">احتفظ بلحظتك</p></article>
+            <span class="story-connector" aria-hidden="true">↓</span>
+            <article class="story-step"><span class="story-number">04</span><span class="story-glyph">↗</span><h3 data-i18n="story.step4Title">شارك</h3><p data-i18n="story.step4Text">شاركها مع من تحب</p></article>
+            <span class="story-connector" aria-hidden="true">↓</span>
+            <article class="story-step"><span class="story-number">05</span><span class="story-glyph">⌂</span><h3 data-i18n="story.step5Title">ثبّت</h3><p data-i18n="story.step5Text">اجعلها Widget على هاتفك</p></article>
+          </div>
+        </div>
+      </section>
+
       <section class="section playground-section" id="playground">
         <div class="container playground-shell">
           <div class="section-head">
