@@ -1153,6 +1153,28 @@ p {
   gap: 10px;
 }
 
+.assistant-status-message {
+  padding: 0 14px 8px;
+  color: var(--muted);
+  font-size: 0.86rem;
+  font-weight: 700;
+}
+
+.assistant-retry {
+  margin: 0 14px 10px;
+  border: 1px solid rgba(192,108,84,0.28);
+  border-radius: 999px;
+  background: rgba(192,108,84,0.08);
+  padding: 7px 12px;
+  color: var(--terracotta);
+  font: inherit;
+  cursor: pointer;
+}
+
+.assistant-retry:hover {
+  background: rgba(192,108,84,0.14);
+}
+
 .message {
   max-width: 88%;
   padding: 10px 12px;
@@ -1189,6 +1211,12 @@ p {
   padding: 0 12px;
   color: var(--ink);
   outline: none;
+}
+
+.assistant-form input:disabled,
+.assistant-form .button:disabled {
+  cursor: wait;
+  opacity: 0.65;
 }
 
 .assistant-form .button {

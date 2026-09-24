@@ -85,16 +85,21 @@ async function fetchAssistantReply(message) {
       })
     });
 
-    if (!response.ok) {
-      const errorData = await response.json().catch(() => ({}));
-      throw new Error(errorData.error || `Chat endpoint failed (${response.status})`);
+    const data = await response.json().catch(() => ({}));
+    if (!response.ok || data.success === false) {
+      throw {
+        message: data.message || `Chat endpoint failed (${response.status})`,
+        retryable: data.error !== 'DAILY_LIMIT_REACHED'
+      };
     }
 
-    const data = await response.json();
-    return data.reply || getFallbackAssistantResponse(message, lang);
+    return { reply: data.reply || getFallbackAssistantResponse(message, lang) };
   } catch (error) {
     console.error('Chat request failed:', error);
-    return getLocalizedAssistantText('assistant.error', lang);
+    return {
+      error: error.message || getLocalizedAssistantText('assistant.error', lang),
+      retryable: Boolean(error.retryable)
+    };
   }
 }
 
@@ -104,8 +109,48 @@ function initChatAssistant() {
   const assistantToggle = document.getElementById('assistantToggle');
   const assistantPanel = document.getElementById('assistantPanel');
   const assistantClose = document.getElementById('assistantClose');
+  const assistantSend = document.getElementById('assistantSend');
+  const assistantStatus = document.getElementById('assistantStatus');
+  const assistantRetry = document.getElementById('assistantRetry');
 
   if (!assistantForm || !assistantInput || !assistantToggle || !assistantPanel) return;
+
+  let isRequestPending = false;
+  let lastSubmittedMessage = '';
+
+  const setStatus = (text = '', visible = false) => {
+    if (!assistantStatus) return;
+    assistantStatus.textContent = text;
+    assistantStatus.hidden = !visible;
+  };
+
+  const setBusy = (busy) => {
+    isRequestPending = busy;
+    assistantInput.disabled = busy;
+    if (assistantSend) assistantSend.disabled = busy;
+  };
+
+  const sendMessage = async (value, showUserMessage = true) => {
+    if (isRequestPending || !value) return;
+    lastSubmittedMessage = value;
+    if (showUserMessage) addChatMessage(value, 'user');
+    assistantInput.value = '';
+    setBusy(true);
+    setStatus(getLocalizedAssistantText('assistant.thinking'), true);
+    if (assistantRetry) assistantRetry.hidden = true;
+
+    const result = await fetchAssistantReply(value);
+    setBusy(false);
+    setStatus('', false);
+
+    if (result.reply) {
+      addChatMessage(result.reply, 'bot');
+      return;
+    }
+
+    addChatMessage(result.error || getLocalizedAssistantText('assistant.error'), 'bot');
+    if (assistantRetry) assistantRetry.hidden = !result.retryable;
+  };
 
   const openPanel = () => {
     assistantPanel.hidden = false;
@@ -136,14 +181,12 @@ function initChatAssistant() {
   assistantForm.addEventListener('submit', async (event) => {
     event.preventDefault();
     const value = assistantInput.value.trim();
-    if (!value) return;
-
-    addChatMessage(value, 'user');
-    assistantInput.value = '';
-
-    const reply = await fetchAssistantReply(value);
-    addChatMessage(reply, 'bot');
+    await sendMessage(value);
   });
+
+  if (assistantRetry) {
+    assistantRetry.addEventListener('click', () => sendMessage(lastSubmittedMessage, false));
+  }
 }
 
 document.addEventListener('DOMContentLoaded', () => {

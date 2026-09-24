@@ -1,10 +1,23 @@
+const {
+  getUserUsage,
+  isWithinDailyLimit,
+  incrementUserUsage,
+  decrementUserUsage
+} = require('./usage');
+
+const TRANSIENT_GEMINI_STATUSES = new Set([429, 502, 503, 504]);
+const RETRY_DELAYS_MS = [1000, 2000];
+
 module.exports = async function handler(request, response) {
   // Only allow POST requests
   if (request.method !== 'POST') {
     return response.status(405).json({
+      success: false,
       error: 'Method not allowed'
     });
   }
+
+  let usage = null;
 
   try {
     // -----------------------------------------
@@ -15,6 +28,7 @@ module.exports = async function handler(request, response) {
 
     if (!userMessage) {
       return response.status(400).json({
+        success: false,
         error: 'Message is required.'
       });
     }
@@ -94,9 +108,28 @@ module.exports = async function handler(request, response) {
       );
 
       return response.status(500).json({
+        success: false,
         error: 'AI is not configured on the server.'
       });
     }
+
+    usage = getUserUsage(request, response);
+    if (!isWithinDailyLimit(usage)) {
+      const message = usage.plan === 'premium'
+        ? 'وصلت إلى حد رسائل وريقة Premium اليوم ✨ حاول مرة أخرى غدًا.'
+        : 'وصلت إلى حد رسائل وريقة اليوم 🌿 يمكنك العودة غدًا ومتابعة حديثك مع مساعد وريقة.';
+
+      return response.status(429).json({
+        success: false,
+        error: 'DAILY_LIMIT_REACHED',
+        message,
+        usage: usage.usage,
+        limit: usage.limit
+      });
+    }
+
+    // Reserve the slot before the external request to prevent concurrent overuse.
+    incrementUserUsage(usage);
 
     // -----------------------------------------
     // 5. Gemini model
@@ -123,14 +156,14 @@ module.exports = async function handler(request, response) {
     };
 
     let geminiResponse;
-    for (let attempt = 0; attempt < 2; attempt += 1) {
+    for (let attempt = 0; attempt < 3; attempt += 1) {
       geminiResponse = await fetch(
         `https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(model)}:generateContent`,
         geminiRequest
       );
 
-      if (geminiResponse.status !== 503 || attempt === 1) break;
-      await new Promise((resolve) => setTimeout(resolve, 700));
+      if (!TRANSIENT_GEMINI_STATUSES.has(geminiResponse.status) || attempt === 2) break;
+      await new Promise((resolve) => setTimeout(resolve, RETRY_DELAYS_MS[attempt]));
     }
 
     // -----------------------------------------
@@ -156,8 +189,20 @@ module.exports = async function handler(request, response) {
         rawResponse
       );
 
+      decrementUserUsage(usage);
+
+      if (TRANSIENT_GEMINI_STATUSES.has(geminiResponse.status)) {
+        return response.status(503).json({
+          success: false,
+          error: 'AI_TEMPORARILY_UNAVAILABLE',
+          message: 'يبدو أن وريقة تحتاج لحظة هدوء... حاول مرة أخرى بعد قليل ✨'
+        });
+      }
+
       return response.status(502).json({
+        success: false,
         error: 'Gemini API request failed.',
+        message: 'تعذر إكمال الطلب الآن. حاول مرة أخرى بعد قليل.',
         geminiStatus: geminiResponse.status
       });
     }
@@ -179,8 +224,12 @@ module.exports = async function handler(request, response) {
         rawResponse
       );
 
+      decrementUserUsage(usage);
+
       return response.status(502).json({
-        error: 'Gemini returned an empty response.'
+        success: false,
+        error: 'Gemini returned an empty response.',
+        message: 'لم تصل إجابة كاملة من وريقة. حاول مرة أخرى.'
       });
     }
 
@@ -188,7 +237,10 @@ module.exports = async function handler(request, response) {
     // 11. Return successful response
     // -----------------------------------------
     return response.status(200).json({
-      reply
+      success: true,
+      reply,
+      usage: usage.usage + 1,
+      limit: usage.limit
     });
 
   } catch (error) {
@@ -197,8 +249,12 @@ module.exports = async function handler(request, response) {
     // -----------------------------------------
     console.error('Chat API error:', error);
 
+    if (usage) decrementUserUsage(usage);
+
     return response.status(500).json({
-      error: 'Internal server error.'
+      success: false,
+      error: 'INTERNAL_SERVER_ERROR',
+      message: 'حدث خطأ غير متوقع. حاول مرة أخرى.'
     });
   }
 }

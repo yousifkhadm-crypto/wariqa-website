@@ -508,9 +508,12 @@
           </div>
         </div>
 
+        <div class="assistant-status-message" id="assistantStatus" role="status" aria-live="polite" hidden></div>
+        <button type="button" class="assistant-retry" id="assistantRetry" data-i18n="assistant.retry" hidden>إعادة المحاولة</button>
+
         <form class="assistant-form" id="assistantForm">
           <input id="assistantInput" type="text" data-i18n-placeholder="assistant.placeholder" placeholder="اسأل عن وَرِيقة أو ذاكرتك..." aria-label="Ask the assistant" />
-          <button type="submit" class="button button-primary" data-i18n="assistant.send">إرسال</button>
+          <button type="submit" class="button button-primary" id="assistantSend" data-i18n="assistant.send">إرسال</button>
         </form>
       </div>
     </aside>
