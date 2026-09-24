@@ -31,7 +31,9 @@
           <span class="brand-text">وَرِيقة</span>
         </a>
 
-        <nav class="main-nav" aria-label="Main navigation">
+        <button type="button" class="nav-toggle" id="navToggle" aria-label="فتح القائمة" aria-controls="mainNav" aria-expanded="false">☰</button>
+
+        <nav class="main-nav" id="mainNav" aria-label="Main navigation">
           <a href="#top" data-i18n="nav.home">الرئيسية</a>
           <a href="#experience" data-i18n="nav.experience">التجربة</a>
           <a href="#features" data-i18n="nav.features">المزايا</a>
@@ -232,21 +234,30 @@
           </div>
           <div class="template-grid">
             <article class="template-card">
-              <div class="template-preview template-one"></div>
+              <div class="template-preview template-one">
+                <img class="template-art" src="assets/templates/letter-memory.svg" alt="معاينة قالب رسالة من الذاكرة" loading="lazy" />
+                <span class="template-mark template-mark-letter">رسالة</span>
+              </div>
               <div class="template-meta">
                 <span class="chip" data-i18n="templates.tag1">رسالة من الذاكرة</span>
                 <h3 data-i18n="templates.name1">رسالة من الذاكرة</h3>
               </div>
             </article>
             <article class="template-card">
-              <div class="template-preview template-two"></div>
+              <div class="template-preview template-two">
+                <img class="template-art" src="assets/templates/family-days.svg" alt="معاينة قالب أيام العائلة" loading="lazy" />
+                <span class="template-mark template-mark-family">معًا</span>
+              </div>
               <div class="template-meta">
                 <span class="chip" data-i18n="templates.tag2">أيام العائلة</span>
                 <h3 data-i18n="templates.name2">أيام العائلة</h3>
               </div>
             </article>
             <article class="template-card">
-              <div class="template-preview template-three"></div>
+              <div class="template-preview template-three">
+                <img class="template-art" src="assets/templates/arabic-poem.svg" alt="معاينة قالب قصيدة في الحائط" loading="lazy" />
+                <span class="template-mark template-mark-poem">أبيات</span>
+              </div>
               <div class="template-meta">
                 <span class="chip" data-i18n="templates.tag3">خطوط عربية</span>
                 <h3 data-i18n="templates.name3">قصيدة في الحائط</h3>
