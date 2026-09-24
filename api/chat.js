@@ -1,4 +1,4 @@
-export default async function handler(request, response) {
+module.exports = async function handler(request, response) {
   // Only allow POST requests
   if (request.method !== 'POST') {
     return response.status(405).json({
@@ -108,37 +108,30 @@ export default async function handler(request, response) {
     // -----------------------------------------
     // 6. Send request to Gemini
     // -----------------------------------------
-    const geminiResponse = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(model)}:generateContent`,
-      {
-        method: 'POST',
-
-        headers: {
-          'Content-Type': 'application/json',
-          'x-goog-api-key': apiKey
+    const geminiRequest = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-goog-api-key': apiKey
+      },
+      body: JSON.stringify({
+        systemInstruction: {
+          parts: [{ text: `${systemPrompt}\n\n${languageInstruction}` }]
         },
+        contents: [{ parts: [{ text: userMessage }] }]
+      })
+    };
 
-        body: JSON.stringify({
-          systemInstruction: {
-            parts: [
-              {
-                text: `${systemPrompt}\n\n${languageInstruction}`
-              }
-            ]
-          },
+    let geminiResponse;
+    for (let attempt = 0; attempt < 2; attempt += 1) {
+      geminiResponse = await fetch(
+        `https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(model)}:generateContent`,
+        geminiRequest
+      );
 
-          contents: [
-            {
-              parts: [
-                {
-                  text: userMessage
-                }
-              ]
-            }
-          ]
-        })
-      }
-    );
+      if (geminiResponse.status !== 503 || attempt === 1) break;
+      await new Promise((resolve) => setTimeout(resolve, 700));
+    }
 
     // -----------------------------------------
     // 7. Read Gemini response
@@ -165,8 +158,7 @@ export default async function handler(request, response) {
 
       return response.status(502).json({
         error: 'Gemini API request failed.',
-        geminiStatus: geminiResponse.status,
-        details: rawResponse.slice(0, 1000)
+        geminiStatus: geminiResponse.status
       });
     }
 
@@ -188,8 +180,7 @@ export default async function handler(request, response) {
       );
 
       return response.status(502).json({
-        error: 'Gemini returned an empty response.',
-        details: rawResponse.slice(0, 1000)
+        error: 'Gemini returned an empty response.'
       });
     }
 

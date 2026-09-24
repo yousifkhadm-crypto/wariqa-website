@@ -99,39 +99,32 @@ app.post('/api/chat', async (req, res) => {
       });
     }
 
-    const model = process.env.GEMINI_MODEL || 'gemini-3.6-flash';
+    const model = 'gemini-3.8-flash';
 
-    const geminiResponse = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(model)}:generateContent`,
-      {
-        method: 'POST',
-
-        headers: {
-          'Content-Type': 'application/json',
-          'x-goog-api-key': apiKey
+    const geminiRequest = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-goog-api-key': apiKey
+      },
+      body: JSON.stringify({
+        systemInstruction: {
+          parts: [{ text: `${systemPrompt}\n\n${languageInstruction}` }]
         },
+        contents: [{ parts: [{ text: userMessage }] }]
+      })
+    };
 
-        body: JSON.stringify({
-          systemInstruction: {
-            parts: [
-              {
-                text: `${systemPrompt}\n\n${languageInstruction}`
-              }
-            ]
-          },
+    let geminiResponse;
+    for (let attempt = 0; attempt < 2; attempt += 1) {
+      geminiResponse = await fetch(
+        `https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(model)}:generateContent`,
+        geminiRequest
+      );
 
-          contents: [
-            {
-              parts: [
-                {
-                  text: userMessage
-                }
-              ]
-            }
-          ]
-        })
-      }
-    );
+      if (geminiResponse.status !== 503 || attempt === 1) break;
+      await new Promise((resolve) => setTimeout(resolve, 700));
+    }
 
     const rawResponse = await geminiResponse.text();
 

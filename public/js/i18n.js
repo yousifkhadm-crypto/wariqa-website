@@ -130,6 +130,7 @@ const translations = {
     'assistant.placeholder': 'اسأل عن وَرِيقة أو ذاكرتك...',
     'assistant.send': 'إرسال',
     'assistant.default': 'أنا هنا لمساعدتك في كل ما يتعلق بتطبيق «وَرِيقة» وصناعة الذكريات الجميلة 📜✨ هل تحب أن أعرّفك على مميزات وَرِيقة أو أعطيك فكرة لتصميم ذكرى؟',
+    'assistant.error': 'تعذر الاتصال بالمساعد الآن. تحقق من تشغيل الخادم ثم حاول مرة أخرى.',
     'assistant.noInfo': 'لم يتم الإعلان عن هذه التفاصيل رسميًا بعد.',
     'assistantSuggestions': ['ما هو تطبيق وَرِيقة؟', 'ماذا يمكنني تصميم؟', 'ما هي القوالب؟', 'كيف تعمل الميزة الذكية؟']
   },
@@ -254,6 +255,7 @@ const translations = {
     'assistant.placeholder': 'در مورد ورقه یا خاطراتتان بپرسید...',
     'assistant.send': 'ارسال',
     'assistant.default': 'من فقط برای کمک به شما در مورد «ورقه» و حفظ خاطرات هستم 📜✨ آیا مایلید درباره ویژگی‌های ورقه یا ایده‌ای برای طراحی خاطره بپرسید؟',
+    'assistant.error': 'اکنون اتصال به دستیار ممکن نیست. اجرای سرور را بررسی کنید و دوباره تلاش کنید.',
     'assistant.noInfo': 'این جزئیات هنوز به‌صورت رسمی اعلام نشده است.',
     'assistantSuggestions': ['اپلیکیشن ورقه چیست؟', 'چه چیزی می‌توانم بسازم؟', 'قالب‌ها چه هستند؟', 'ویژگی هوشمند چگونه کار می‌کند؟']
   },
@@ -378,6 +380,7 @@ const translations = {
     'assistant.placeholder': 'Ask about Wariqa or your memories...',
     'assistant.send': 'Send',
     'assistant.default': 'I’m here to help with Wariqa and creative memory preservation 📜✨ Would you like to explore Wariqa’s features or get an idea for a memory design?',
+    'assistant.error': 'The assistant is unavailable right now. Check that the server is running and try again.',
     'assistant.noInfo': 'This has not been officially announced yet.',
     'assistantSuggestions': ['What is the app about?', 'What can I design?', 'What are the templates?', 'How does the smart feature work?']
   }

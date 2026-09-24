@@ -86,13 +86,15 @@ async function fetchAssistantReply(message) {
     });
 
     if (!response.ok) {
-      throw new Error('Chat endpoint failed');
+      const errorData = await response.json().catch(() => ({}));
+      throw new Error(errorData.error || `Chat endpoint failed (${response.status})`);
     }
 
     const data = await response.json();
     return data.reply || getFallbackAssistantResponse(message, lang);
   } catch (error) {
-    return getFallbackAssistantResponse(message, lang);
+    console.error('Chat request failed:', error);
+    return getLocalizedAssistantText('assistant.error', lang);
   }
 }
 
